@@ -1,0 +1,43 @@
+/*
+It is O(m*n) solution as it will check for every possible value.... 
+
+*/
+
+int getMoneySpent(vector<int> keyboards, vector<int> drives, int b) { 
+  
+  int max=-1;
+  for(int i=0;i<keyboards.size();i++) {
+      for(int j=0;j<drives.size();j++){
+                if(max < keyboards[i]+drives[j] && keyboards[i]+drives[j]<=b)
+                    max=keyboards[i]+drives[j];
+      }}
+return max;
+}
+
+
+
+/*
+ Now After optimisation here in this approach, we will sort both array then we after sorting we will go for value in tricky manner
+ where we use a condition if(a+b>value) break; so that the loop will break after the value being greater so it will be quick 
+ so inner loop will run constant time.
+ so we  iterat each value once so the complexity will O(m+n) + O(nlog(n) + O(mlog(m) that will O(m+n)....  
+*/
+
+int getMoneySpent(vector<int> keyboards, vector<int> drives, int b) {
+  
+  sort(keyboards.begin(),keyboards.end(),greater<int>());
+  sort(drives.begin(),drives.end());
+  
+  int max=-1;
+  
+  for(int i=0;i<keyboards.size();i++) {
+      for(int j=0;j<drives.size();j++){
+            if(keyboards[i]+drives[j]>b)
+                break;
+            else
+                if(max < keyboards[i]+drives[j])
+                    max=keyboards[i]+drives[j];
+      }
+  }
+return max;
+}
